@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Core vs. Abdomen — Manual de entrenamiento sin equipo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --mat:#1B2420;         /* dark rubber-mat green-black */
+    --mat-deep:#131A17;
+    --card:#F2EFE7;         /* chalk/index-card paper */
+    --card-dim:#E7E2D6;
+    --ink:#1B2420;
+    --paper-text:#3A3F3B;
+    --teal:#28C9AD;         /* fresh gym-teal accent */
+    --amber:#F0A93D;        /* tip / warning amber */
+    --line: rgba(242,239,231,0.14);
+    --mono: 'JetBrains Mono', monospace;
+    --display: 'Oswald', sans-serif;
+    --body: 'Inter', sans-serif;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--mat);
+    color:var(--card);
+    font-family:var(--body);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{color:inherit;}
+
+  ::selection{background:var(--teal);color:var(--mat-deep);}
+
+  .wrap{max-width:920px;margin:0 auto;padding:0 24px;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    padding:110px 0 70px;
+    overflow:hidden;
+    border-bottom:1px solid var(--line);
+    background:
+      radial-gradient(120% 90% at 85% -10%, rgba(40,201,173,0.14), transparent 60%),
+      repeating-linear-gradient(0deg, transparent, transparent 39px, var(--line) 40px);
+  }
+  .hero .kicker{
+    font-family:var(--mono);
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    font-size:12.5px;
+    color:var(--teal);
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:22px;
+  }
+  .hero .kicker::before{
+    content:"";
+    width:26px;height:1px;background:var(--teal);display:inline-block;
+  }
+  .hero h1{
+    font-family:var(--display);
+    font-weight:700;
+    text-transform:uppercase;
+    font-size:clamp(38px,7vw,72px);
+    line-height:0.98;
+    margin:0 0 28px;
+    letter-spacing:0.01em;
+  }
+  .hero h1 span{color:var(--teal);}
+  .hero p.lede{
+    max-width:56ch;
+    font-size:18px;
+    color:#D9D6CC;
+    margin:0;
+  }
+  .hero .stopwatch{
+    position:absolute;
+    right:-40px; top:60px;
+    width:230px;height:230px;
+    opacity:.5;
+  }
+  @media (max-width:720px){ .hero .stopwatch{display:none;} }
+
+  section{padding:70px 0;border-bottom:1px solid var(--line);}
+  section:last-of-type{border-bottom:none;}
+
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:12px;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--teal);
+    margin:0 0 14px;
+  }
+  h2.section-title{
+    font-family:var(--display);
+    text-transform:uppercase;
+    font-weight:600;
+    font-size:clamp(26px,4vw,38px);
+    margin:0 0 34px;
+    letter-spacing:.01em;
+  }
+
+  /* ---------- COMPARATIVE SPEC CARD: abdomen vs core ---------- */
+  .compare{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+    border-radius:4px;
+    overflow:hidden;
+  }
+  .compare > div{
+    background:var(--mat-deep);
+    padding:30px 28px;
+  }
+  .compare h3{
+    font-family:var(--mono);
+    font-size:13px;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:#9AA39D;
+    margin:0 0 6px;
+  }
+  .compare .big{
+    font-family:var(--display);
+    font-size:26px;
+    text-transform:uppercase;
+    margin:0 0 16px;
+    color:var(--card);
+  }
+  .compare p{margin:0;color:#C7C3B8;font-size:15px;}
+  .compare strong{color:var(--teal);font-weight:600;}
+  .compare .core-col .big{color:var(--teal);}
+  @media (max-width:640px){ .compare{grid-template-columns:1fr;} }
+
+  /* ---------- EXERCISE LOG CARDS ---------- */
+  .log{display:flex;flex-direction:column;gap:22px;}
+  .card{
+    background:var(--card);
+    color:var(--ink);
+    border-radius:4px;
+    padding:0;
+    display:grid;
+    grid-template-columns:120px 1fr;
+    overflow:hidden;
+    box-shadow:0 20px 40px -20px rgba(0,0,0,.5);
+  }
+  .card .num{
+    background:var(--mat-deep);
+    color:var(--teal);
+    font-family:var(--mono);
+    font-size:52px;
+    font-weight:700;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-right:1px dashed rgba(242,239,231,.25);
+  }
+  .card .body{padding:26px 28px 28px;}
+  .card h3{
+    font-family:var(--display);
+    text-transform:uppercase;
+    font-size:22px;
+    margin:0 0 4px;
+    letter-spacing:.01em;
+  }
+  .card .muscle-tag{
+    display:inline-block;
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    background:rgba(27,36,32,0.08);
+    color:var(--paper-text);
+    padding:3px 9px;
+    border-radius:20px;
+    margin-bottom:14px;
+  }
+  .card .row{margin:10px 0;}
+  .card .row .label{
+    font-family:var(--mono);
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    color:#8A8577;
+    display:block;
+    margin-bottom:3px;
+  }
+  .card .row p{margin:0;font-size:15px;color:var(--paper-text);}
+  .card .key{
+    border-left:3px solid var(--amber);
+    background:rgba(240,169,61,0.08);
+    padding:10px 14px;
+    margin:14px 0;
+    font-size:14.5px;
+  }
+  .card .timer{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-family:var(--mono);
+    background:var(--ink);
+    color:var(--teal);
+    padding:8px 14px;
+    border-radius:3px;
+    font-size:14px;
+    font-weight:500;
+    letter-spacing:.03em;
+  }
+  .card .timer::before{content:"⏱";font-size:14px;}
+  @media (max-width:600px){
+    .card{grid-template-columns:64px 1fr;}
+    .card .num{font-size:30px;border-right:1px dashed rgba(242,239,231,.25);}
+  }
+
+  /* ---------- RECOMMENDATIONS ---------- */
+  .tips{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+  }
+  .tip{background:var(--mat-deep);padding:26px 26px;}
+  .tip .tip-label{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--amber);
+    display:block;
+    margin-bottom:10px;
+  }
+  .tip h4{
+    font-family:var(--display);
+    text-transform:uppercase;
+    font-size:18px;
+    margin:0 0 8px;
+    color:var(--card);
+  }
+  .tip p{margin:0;color:#C7C3B8;font-size:14.5px;}
+  @media (max-width:640px){ .tips{grid-template-columns:1fr;} }
+
+  footer{
+    padding:36px 0 60px;
+    font-family:var(--mono);
+    font-size:12px;
+    color:#75786F;
+    letter-spacing:.04em;
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <svg class="stopwatch" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="100" cy="110" r="78" stroke="#28C9AD" stroke-opacity="0.35" stroke-width="2"/>
+    <circle cx="100" cy="110" r="60" stroke="#28C9AD" stroke-opacity="0.5" stroke-width="1"/>
+    <line x1="100" y1="110" x2="100" y2="60" stroke="#28C9AD" stroke-width="2"/>
+    <line x1="100" y1="110" x2="130" y2="120" stroke="#28C9AD" stroke-width="2"/>
+    <rect x="90" y="24" width="20" height="14" rx="2" stroke="#28C9AD" stroke-width="2"/>
+  </svg>
+  <div class="wrap">
+    <p class="kicker">Guía de entrenamiento · 2026</p>
+    <h1>Core fuerte,<br><span>no solo</span> abdomen marcado</h1>
+    <p class="lede">Entender la diferencia entre entrenar el recto abdominal y entrenar el core es el primer paso para proteger la espalda, mejorar la postura y entrenar con criterio en casa, sin ningún equipo.</p>
+  </div>
+</header>
+
+<section id="diferencia">
+  <div class="wrap">
+    <p class="eyebrow">Ficha técnica</p>
+    <h2 class="section-title">Abdomen vs. Core</h2>
+    <div class="compare">
+      <div class="abs-col">
+        <h3>Ejercicios de abdomen</h3>
+        <p class="big">Recto abdominal</p>
+        <p>Se centran en el músculo <strong>"visible"</strong> o six-pack. Suelen implicar flexión de la columna, como en los crunches clásicos. Su función es principalmente estética.</p>
+      </div>
+      <div class="core-col">
+        <h3>Ejercicios de core</h3>
+        <p class="big">Faja abdominal profunda</p>
+        <p>Incluyen el <strong>transverso</strong>, los <strong>oblicuos</strong>, la zona lumbar y el suelo pélvico. Su función principal es la estabilidad y la protección de la columna.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="ejercicios">
+  <div class="wrap">
+    <p class="eyebrow">Rutina de casa · sin equipo</p>
+    <h2 class="section-title">Los 5 mejores ejercicios</h2>
+
+    <div class="log">
+
+      <div class="card">
+        <div class="num">01</div>
+        <div class="body">
+          <h3>La Plancha (Plank)</h3>
+          <span class="muscle-tag">Core completo</span>
+          <div class="row">
+            <span class="label">Cómo hacerlo</span>
+            <p>Apoya los antebrazos en el suelo y extiende las piernas. Mantén el cuerpo en línea recta desde la cabeza a los talones.</p>
+          </div>
+          <div class="key">Contrae glúteos y abdomen fuertemente; evita que la cadera se hunda o se eleve demasiado.</div>
+          <span class="timer">3 series · 30–60 seg</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="num">02</div>
+        <div class="body">
+          <h3>Russian Twist</h3>
+          <span class="muscle-tag">Oblicuos</span>
+          <div class="row">
+            <span class="label">Cómo hacerlo</span>
+            <p>Sentado en el suelo, inclina el tronco ligeramente hacia atrás manteniendo la espalda recta y eleva los pies. Gira el torso de lado a lado tocando el suelo con las manos.</p>
+          </div>
+          <div class="key">El movimiento debe venir del tronco, no solo de los brazos.</div>
+          <span class="timer">4 series · 20 giros totales</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="num">03</div>
+        <div class="body">
+          <h3>Mountain Climbers</h3>
+          <span class="muscle-tag">Core + cardio</span>
+          <div class="row">
+            <span class="label">Cómo hacerlo</span>
+            <p>En posición de flexión, con las manos en el suelo, lleva las rodillas alternativamente hacia el pecho a gran velocidad.</p>
+          </div>
+          <div class="key">Mantén la cadera baja y el core activo para no arquear la espalda baja.</div>
+          <span class="timer">4 series · 30–40 seg alta intensidad</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="num">04</div>
+        <div class="body">
+          <h3>Reverse Crunch</h3>
+          <span class="muscle-tag">Abdomen inferior</span>
+          <div class="row">
+            <span class="label">Cómo hacerlo</span>
+            <p>Tumbado boca arriba, lleva las rodillas hacia el pecho elevando la cadera del suelo, luego baja controladamente.</p>
+          </div>
+          <div class="key">No uses el impulso de las piernas; la fuerza debe venir del abdomen.</div>
+          <span class="timer">4 series · 15–20 repeticiones</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="num">05</div>
+        <div class="body">
+          <h3>Plancha Lateral</h3>
+          <span class="muscle-tag">Oblicuos · estabilidad</span>
+          <div class="row">
+            <span class="label">Cómo hacerlo</span>
+            <p>Apóyate sobre un antebrazo y el lateral del pie, elevando la cadera hasta formar una línea recta.</p>
+          </div>
+          <div class="key">No dejes que la cadera caiga hacia el suelo.</div>
+          <span class="timer">3 series · 20–40 seg por lado</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="recomendaciones">
+  <div class="wrap">
+    <p class="eyebrow">Antes de empezar</p>
+    <h2 class="section-title">Recomendaciones para resultados óptimos</h2>
+    <div class="tips">
+      <div class="tip">
+        <span class="tip-label">Frecuencia</span>
+        <h4>3 a 4 veces por semana</h4>
+        <p>No es necesario entrenar el core todos los días. Dar descanso permite la recuperación muscular.</p>
+      </div>
+      <div class="tip">
+        <span class="tip-label">Técnica</span>
+        <h4>Calidad sobre cantidad</h4>
+        <p>Es preferible hacer menos repeticiones bien ejecutadas que muchas con mala postura, lo cual podría causar lesiones lumbares.</p>
+      </div>
+      <div class="tip">
+        <span class="tip-label">Respiración</span>
+        <h4>Exhala en el esfuerzo</h4>
+        <p>Exhala siempre al contraer el abdomen, en el momento de mayor esfuerzo, e inhala al volver a la posición inicial.</p>
+      </div>
+      <div class="tip">
+        <span class="tip-label">Visibilidad muscular</span>
+        <h4>Fuerza no es lo mismo que marca</h4>
+        <p>Un core fuerte no siempre implica un abdomen marcado. Definir los músculos requiere combinar entrenamiento con una alimentación equilibrada.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    Rutina sin equipo · basada en las tendencias de entrenamiento funcional 2026
+  </div>
+</footer>
+
+</body>
+</html>
